@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Backend\AuthAdminController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProductByUserTypeController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserType\UserTypeController;
 
 /*
@@ -20,14 +21,17 @@ use App\Http\Controllers\UserType\UserTypeController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('tset/{product}',[TestController::class,'tset']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {});
 
 Route::post('login', LoginController::class);
 Route::post('Registration', RegistrationController::class);
 Route::resource('users', UserController::class);
 Route::get('userTypes', UserTypeController::class);
-Route::resource('product', ProductController::class);
-Route::prefix('products')->group(function () {
-    Route::get('index',[ProductByUserTypeController::class,'index'])->middleware('auth:sanctum');
-});
+Route::resource('/products', ProductController::class);
+
+
+    Route::prefix('product')->group(function () {
+        Route::get('index',[ProductByUserTypeController::class,'index'])->middleware('auth:sanctum');
+    });

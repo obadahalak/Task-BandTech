@@ -2,13 +2,14 @@
 namespace App\Repository;
 
 use App\Models\Product;
+use App\Traits\UploadImage;
 use App\helpers\ApiResponse;
+use App\Repository\ProductInterface;
 use App\Http\Requests\ProductRequest;
-use App\Traits\ImageUpload;
 
-class ProductRepository
+class ProductRepository implements ProductInterface
 {
-    use ImageUpload ;
+    use UploadImage;
     public function index()
     {
         return Product::all();
@@ -18,7 +19,7 @@ class ProductRepository
     {
         Product::create(
             [
-                'image' => $request->file('image')->store('public'),
+                'image' => $this->upload($request->image, 'image_product'),
                 'is_active' => false,
             ] + $request->validated(),
         );
@@ -28,13 +29,12 @@ class ProductRepository
 
     public function show(Product $product)
     {
-        return $product ;
+        return $product;
     }
 
- 
     public function edit(Product $product)
     {
-        return $product ;
+        return $product;
     }
 
     public function update(ProductRequest $request, Product $product)
@@ -43,7 +43,7 @@ class ProductRepository
 
         $product->update(
             [
-                'image' => $this->uploadImage('image_product'),
+                'image' => $this->upload($request->image, 'image_product'),
             ] + $request->validated(),
         );
 
@@ -52,7 +52,7 @@ class ProductRepository
 
     public function destroy(Product $product)
     {
-        $this->deleteImage($product);
+        $this->deleteImage($product->image, 'image');
         $product->delete();
 
         return ApiResponse::deleteSuccessResponse();

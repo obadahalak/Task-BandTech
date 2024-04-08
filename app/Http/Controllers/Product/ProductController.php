@@ -2,65 +2,45 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\TsetRequest;
+use App\Http\Controllers\Controller;
+use App\Repository\ProductInterface;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(private ProductInterface $ProductRepository)
+    {
+    }
     public function index()
     {
-        //
+        return response()->json($this->ProductRepository->index());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(ProductRequest $request)
     {
-        //
+        return response()->json($this->ProductRepository->store($request));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
-        //
+        return response()->json($this->ProductRepository->show($product));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Product $product)
     {
-        //
+        return response()->json($this->ProductRepository->edit($product));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        return response()->json($this->ProductRepository->update($request,$product));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
-        //
+        return response()->json($this->ProductRepository->destroy($product));
     }
 }

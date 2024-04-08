@@ -6,7 +6,7 @@ use App\helpers\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
-class ProductRequest extends FormRequest
+class TsetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:3', ],
-            'description' => ['required', 'min:10', ],
+            'name' => ['required', 'min:3', 'mix:15'],
+            'description' => ['required', 'min:10', 'mix:400'],
             'image' => ['required', 'image'],
             'price' => ['required', 'numeric'],
             'slug' => ['required'],

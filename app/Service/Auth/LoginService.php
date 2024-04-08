@@ -19,6 +19,6 @@ class LoginService
                 'email' => ['Email or password not correct']]);
         }
 
-        return ['token' => $admin->createToken('token-name', ['admin'])->plainTextToken];
+        return ['token' => $admin->createToken('token-name', ['*'])->plainTextToken];
     }
 }

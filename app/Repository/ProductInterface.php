@@ -4,7 +4,7 @@ namespace App\Repository;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 
-class ProductInterface
+interface ProductInterface
 {
     public function index();
     public function store(ProductRequest $request);
