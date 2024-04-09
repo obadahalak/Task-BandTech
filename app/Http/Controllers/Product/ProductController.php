@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\TsetRequest;
 use App\Http\Controllers\Controller;
 use App\Repository\ProductInterface;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 
 class ProductController extends Controller
 {

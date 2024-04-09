@@ -5,33 +5,26 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
-use App\Http\Controllers\Backend\AuthAdminController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProductByUserTypeController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\UserType\UserTypeController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-Route::post('tset/{product}',[TestController::class,'tset']);
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {});
-
+/// start authentication endpoints///
 Route::post('login', LoginController::class);
 Route::post('Registration', RegistrationController::class);
-Route::resource('users', UserController::class);
-Route::get('userTypes', UserTypeController::class);
-Route::resource('/products', ProductController::class);
+//// end authentication endpoints///
 
+/// crud user endpoints  /////
+Route::resource('users', UserController::class)->except('update');
+Route::post('update-user/{users}', [UserController::class, 'update'])->middleware('auth:sanctum');
+///end crud user endpoints  /////
 
-    Route::prefix('product')->group(function () {
-        Route::get('index',[ProductByUserTypeController::class,'index'])->middleware('auth:sanctum');
-    });
+/// crud product endpoints  /////
+Route::resource('/products', ProductController::class)->except('update');
+Route::post('update-product/{product}', [ProductController::class, 'update']);
+///end crud product endpoints  /////
+
+/// Fetch product prices according to user type endpoints  ///
+Route::prefix('productByUserType')->group(function () {
+    Route::get('index', [ProductByUserTypeController::class, 'index'])->middleware('auth:sanctum');
+});
+/// end Fetch product prices according to user type endpoints  ///

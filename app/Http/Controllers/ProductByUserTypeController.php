@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\UserType;
 use Illuminate\Http\Request;
+use App\Service\ProductByUserTypeService;
 
 class ProductByUserTypeController extends Controller
 {
-    public function index()
+    public function index(ProductByUserTypeService $productByUserTypeService)
     {
-        // dd(auth()->user()->user_type());
+        return response()->json($productByUserTypeService->index());
+       
     }
+
 }

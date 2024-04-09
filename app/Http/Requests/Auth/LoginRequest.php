@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use App\helpers\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
-class ProductRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:3', ],
-            'description' => ['required', 'min:10', ],
-            'image' => ['required', 'image'],
-            'price' => ['required', 'numeric'],
-            'slug' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8', 'max:30'],
         ];
     }
 

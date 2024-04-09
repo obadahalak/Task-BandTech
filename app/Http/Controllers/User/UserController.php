@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Repository\UserInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -36,7 +36,6 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        dd('asd');
         return response()->json($this->UserRepository->update($request, $user));
     }
 

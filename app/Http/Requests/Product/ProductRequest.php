@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
 use App\helpers\ApiResponse;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
-class UpdateUserRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,19 +24,16 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:3', 'max:30'],
-            'email' => ['required', 'email', Rule::unique('users')->ignore(auth()->user())],
-            'username' => ['required', 'min:3', 'max:15'],
-            'avatar' => ['required','image','max:500000'],
-            'user_type_id'=>['required'],
-            'old_password' => ['sometimes', 'required', 'min:8'],
-            'new_password' => ['sometimes', 'required', 'min:8', 'different:old_password'],
+            'name' => ['required', 'min:3', ],
+            'description' => ['required', 'min:10', ],
+            'image' => ['required', 'image'],
+            'price' => ['required', 'numeric'],
+            'slug' => ['required'],
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
         return ApiResponse::failedValidation($validator);
-
     }
 }

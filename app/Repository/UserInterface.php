@@ -3,7 +3,7 @@ namespace App\Repository;
 
 use App\Models\User;
 use App\Http\Requests\User\UserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 interface UserInterface
 {

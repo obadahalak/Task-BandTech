@@ -11,13 +11,15 @@ trait UploadImage
         return $image->store($folderName, 'public');
     }
 
-    public function deleteImage($image,$folderName){
-        if (Storage::exists('public/' .$image, $folderName)) {
-            Storage::delete('public/' .$image, $folderName);
+    public function deleteImage($image, $folderName)
+    {
+        if (Storage::exists('public/' . $image, $folderName)) {
+            Storage::delete('public/' . $image, $folderName);
         }
     }
 
-    public function updateImage($folder){
-        $this->deleteAvatar($folder);
+    public function updateImage($image, $folderName)
+    {
+        $this->deleteImage($image, $folderName);
     }
 }

@@ -2,7 +2,7 @@
 namespace App\Repository;
 
 use App\Models\Product;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 
 interface ProductInterface
 {

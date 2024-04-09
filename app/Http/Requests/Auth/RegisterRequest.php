@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Enums\UserType;
+use App\Rules\UserTypeRule;
 use App\helpers\ApiResponse;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,7 +31,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'username' => ['required', 'min:3', 'max:15'],
             'avatar' => ['required','image','max:500000'],
-            'user_type_id'=>['required'],
+            'type' => ['required',Rule::in([UserType::NORMAL, UserType::GOLD, UserType::SILVER])],
             'password' => ['sometimes', 'required', 'min:3', 'max:30', 'confirmed'],
         ];
     }
