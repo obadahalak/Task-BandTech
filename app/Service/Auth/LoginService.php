@@ -11,15 +11,17 @@ class LoginService
 {
       /// --- User login --- ///
     public function login(LoginRequest $request)
-    {
+    {    
+        // Find user by email
         $user = User::whereEmail($request->email)->first();
 
+        ///Check the user is not exists or password is correct 
         if (! $user || ! Hash::check($request->password, $user->password)) 
 
             throw ValidationException::withMessages([
                 'email' => ['Email or password not correct']]);
         
-
+            //Generate access token
         return ['token' => $user->createToken('token-name', ['*'])->plainTextToken];
     }
 }
