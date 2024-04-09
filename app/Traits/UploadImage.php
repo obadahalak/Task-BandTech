@@ -13,9 +13,9 @@ trait UploadImage
 
     public function deleteImage($image, $folderName)
     {
-        if (Storage::exists('public/' . $image, $folderName)) {
+        if (Storage::exists('public/' . $image, $folderName)) 
             Storage::delete('public/' . $image, $folderName);
-        }
+        
     }
 
     public function updateImage($image, $folderName)
