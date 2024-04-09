@@ -40,9 +40,11 @@ class UserRepository implements UserInterface
     {
         return $user;
     }
-    // Modification of the user account
+    // Update user
     public function update(UpdateUserRequest $request, User $user)
     {
+
+        ///get authenticated user 
         $user = auth()->user();
 
         $updatedFields = $this->validatedFields($request, $user);
@@ -50,7 +52,7 @@ class UserRepository implements UserInterface
         if ($request->filled('old_password')) {
             if (!$this->checkPassword($user, $request->old_password)) {
                 throw ValidationException::withMessages([
-                    'error' => ['old password  not correct'],
+                    'error' => ['old password not correct'],
                 ]);
             }
 
@@ -63,7 +65,7 @@ class UserRepository implements UserInterface
         return ApiResponse::successResponse('update successful');
     }
 
-    /// delete account
+    /// Delete user
     public function destroy(User $user)
     {
         $this->deleteImage($user->avatar, 'user_avatar');
